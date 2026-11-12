@@ -116,14 +116,14 @@ export function collectSystemHealth(): SystemHealth {
 export const systemHealthTool = createTool({
   id: 'system-health',
   description:
-    'Check the health of this machine and the Mastra server: Node version, memory, disk, uptime, mastra.db presence and whether OPENAI_API_KEY is set. Returns one check per item plus an overall ok flag. Never invent numbers — always call this tool when asked about system status.',
+    'Kiểm tra sức khỏe của máy này và Mastra server: phiên bản Node, bộ nhớ, ổ đĩa, thời gian chạy, mastra.db có tồn tại không và OPENAI_API_KEY đã được set chưa. Trả về một mục kiểm tra cho mỗi hạng mục kèm cờ ok tổng thể. Không bao giờ bịa số liệu — khi được hỏi về trạng thái hệ thống thì luôn gọi tool này.',
   inputSchema: z.object({}),
   execute: async () => collectSystemHealth(),
 });
 
 export const currentTimeTool = createTool({
   id: 'current-time',
-  description: 'Get the current date and time, optionally in a given IANA timezone (e.g. Asia/Bangkok).',
+  description: 'Lấy ngày giờ hiện tại, có thể theo một múi giờ IANA (ví dụ Asia/Bangkok).',
   inputSchema: z.object({
     timezone: z
       .string()

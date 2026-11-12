@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@mastra/client-js": "latest",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "description": "Production chat UI (tiếng Việt) cho AI Platform — nói chuyện với coordinator-agent qua Mastra server.",
+  "devDependencies": {
+    "@mastra/core": "1.82.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.1.0"
+  },
+  "name": "ai-platform-chat",
+  "private": true,
+  "scripts": {
+    "build": "tsc --noEmit && vite build",
+    "dev": "vite",
+    "preview": "vite preview --host --port 5173"
+  },
+  "type": "module",
+  "version": "1.0.0"
+}

@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export const startScheduleTool = createTool({
   id: 'start_schedule',
-  description: 'Start a recurring schedule for the coordinator agent.',
+  description: 'Bắt đầu một lịch lặp cho coordinator agent.',
   inputSchema: z.object({
     schedule: z.string().describe('Cron expression for when to run.'),
     prompt: z.string().describe('Prompt to run on the schedule.'),
@@ -25,7 +25,7 @@ export const startScheduleTool = createTool({
 
 export const stopScheduleTool = createTool({
   id: 'stop_schedule',
-  description: 'Stop a schedule by pausing it.',
+  description: 'Dừng một lịch bằng cách tạm ngưng nó.',
   inputSchema: z.object({
     scheduleId: z.string().describe('Schedule id returned by start_schedule.'),
   }),

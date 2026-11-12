@@ -86,13 +86,13 @@ const executeStep = createStep({
     if (inputData.status === 'rejected') {
       return {
         ...inputData,
-        summary: 'Task rejected at scope: empty task.',
+        summary: 'Việc bị từ chối ở bước scope: nội dung việc trống.',
         status: 'executed',
       };
     }
     return {
       ...inputData,
-      summary: `Routed to ${inputData.route} with priority ${inputData.priority}.`,
+      summary: `Đã chuyển cho ${inputData.route}, mức ưu tiên ${inputData.priority}.`,
       status: 'executed',
     };
   },

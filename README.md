@@ -53,6 +53,22 @@ Chạy workflow pipeline trực tiếp (không cần chat):
 npx mastra api workflow run start task-pipeline '{"inputData":{"task":"Kiểm tra sức khỏe hệ thống","taskType":"ops","priority":"high"}}'
 ```
 
+## Chat production (tiếng Việt)
+
+Studio ở cổng 4111 chỉ dùng để dev. Chat production nằm trong thư mục `chat/` (Vite + React, dùng `@mastra/client-js` để nói chuyện với Mastra server, stream theo thời gian thực, giao diện hoàn toàn tiếng Việt).
+
+```shell
+# Chạy server trước (thư mục gốc)
+npm run dev
+# Rồi chạy chat (thư mục chat/)
+cd chat && npm install && npm run dev   # http://localhost:5173
+```
+
+- Agent mặc định là **Điều phối viên**; có thể chuyển sang Nghiên cứu / Vận hành / Tự kiểm tra ở ô chọn agent.
+- Mỗi agent có một thread riêng, lưu trong `localStorage` và bền vững trên server (`mastra.db`), nên agent vẫn nhớ ngữ cảnh sau khi tải lại trang. Nút **Đoạn chat mới** tạo thread mới.
+- Chat chỉ trả lời được khi server đã có `OPENAI_API_KEY` thật trong `.env`. Chưa có key thì trang vẫn mở được, nhưng gửi tin sẽ báo lỗi rõ ràng.
+- Xem `chat/README.md` để biết cách build production.
+
 ## Thêm agent / tool mới
 
 1. Tạo tool mới trong `src/mastra/tools/` bằng `createTool` (xem `system-health.ts`), export qua `src/mastra/tools/index.ts`.
@@ -67,9 +83,13 @@ Mặc định dùng file `./mastra.db` (LibSQL) để lưu memory, task và sche
 ## Chạy bằng Docker (tùy chọn, cho homelab)
 
 ```shell
-docker build -t ai-platform .
-docker run -d -p 4111:4111 -e OPENAI_API_KEY=... -v ai-platform-data:/app ai-platform
+cp .env.example .env   # điền OPENAI_API_KEY
+docker compose up -d --build
 ```
+
+- Chat: `http://<host>:5173`, Mastra server + Studio: `http://<host>:4111`.
+- `mastra.db` được lưu trong volume `ai-platform-data` nên không mất memory/schedule khi rebuild.
+- Chỉ chạy riêng server: `docker build -t ai-platform .` rồi `docker run -d -p 4111:4111 -e OPENAI_API_KEY=... ai-platform`.
 
 Lưu ý: Studio chỉ nên mở trong mạng nội bộ hoặc sau reverse proxy có auth (xác thực); đừng phơi trực tiếp ra internet.
 

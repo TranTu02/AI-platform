@@ -1,0 +1,31 @@
+# AI Platform — Mastra server + chat production (tiếng Việt).
+# Chạy:  cp .env.example .env  (điền OPENAI_API_KEY)  rồi  docker compose up -d --build
+# - Chat:  http://<host>:5173  (giao diện tiếng Việt, proxy /api sang server)
+# - Studio (dev): http://<host>:4111
+# - Mastra server API: http://<host>:4111/api
+services:
+  server:
+    build: .
+    container_name: ai-platform-server
+    ports:
+      - "4111:4111"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      # Lưu mastra.db vào volume /data để không mất memory/schedule khi rebuild.
+      - TURSO_DATABASE_URL=file:/data/mastra.db
+      - TURSO_AUTH_TOKEN=${TURSO_AUTH_TOKEN:-}
+    volumes:
+      - ai-platform-data:/data
+    restart: unless-stopped
+
+  chat:
+    build: ./chat
+    container_name: ai-platform-chat
+    ports:
+      - "5173:80"
+    depends_on:
+      - server
+    restart: unless-stopped
+
+volumes:
+  ai-platform-data:

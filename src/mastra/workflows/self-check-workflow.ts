@@ -48,8 +48,8 @@ const evaluateStep = createStep({
       );
     } else if (freeMB < 1024 || (diskGB >= 0 && diskGB < 5)) {
       verdict = 'WARN';
-      if (freeMB < 1024) problems.push(`free memory tight: ${freeMB} MB`);
-      if (diskGB >= 0 && diskGB < 5) problems.push(`disk tight: ${diskGB} GB free`);
+      if (freeMB < 1024) problems.push(`bộ nhớ trống ít: ${freeMB} MB`);
+      if (diskGB >= 0 && diskGB < 5) problems.push(`ổ đĩa trống ít: ${diskGB} GB`);
     }
 
     return {
@@ -58,7 +58,7 @@ const evaluateStep = createStep({
       summary:
         problems.length > 0
           ? `${verdict} — ${problems.join('; ')}`
-          : `${verdict} — all checks ok (free ${freeMB} MB, disk ${diskGB} GB)`,
+          : `${verdict} — mọi kiểm tra đều ổn (trống ${freeMB} MB RAM, ổ đĩa ${diskGB} GB)`,
       health,
     };
   },

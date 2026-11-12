@@ -11,7 +11,7 @@ export const selfCheckAgent = new Agent({
 - PASS: every check is ok.
 - WARN: all core checks are ok but something is tight (free memory under 1 GB or disk under 5 GB).
 - FAIL: any check failed, or OPENAI_API_KEY is missing.
-- Answer in Vietnamese unless the user asked in another language.
+- Luôn trả lời bằng tiếng Việt.
 - Reply with one line for the verdict, then the failing or tight checks only. Do not paste the whole raw JSON.`,
   model: 'openai/gpt-6-luna',
   defaultOptions: { maxSteps: 10 },
